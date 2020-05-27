@@ -1,39 +1,23 @@
 import React, { useState } from 'react';
-import { Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
 
 import user from '../../assetes/icons/user.png';
 import whiteUser from '../../assetes/icons/user-white.png';
 import whitePassword from '../../assetes/icons/password-white.png';
 import passwordIcon from '../../assetes/icons/password.png';
-import { Input, Layout } from './../../components';
-
-const useStyle = makeStyles((theme) => ({
-    inputsContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        [theme.breakpoints.down('sm')]: {
-            marginTop: '10vh',
-            width: '100vw',
-        }, 
-    },
-    inputContainer: {
-        display: 'flex',
-    },
-}));
+import { Layout, Inputs } from './../../components';
+import { InputData } from '../../data';
 
 const Login = (props) => {
-    const classes = useStyle();
     const [loading, setLoading] = useState(false);
     const [userName, setUserName] = useState({
         userName: '',
-        hasError: false
+        hasError: false,
+        errorMessage: '',
     });
     const [password, setPassword] = useState({
         password: '', 
-        hasError: false
+        hasError: false, 
+        errorMessage: ''
     });
 
     const handleSubmit = () => {
@@ -41,7 +25,11 @@ const Login = (props) => {
 
         if (userName.userName.length < 1) {
             setUserName(prevState => {
-                const newState = { ...prevState, hasError: true };
+                const newState = { 
+                    ...prevState, 
+                    hasError: true, 
+                    errorMessage: 'Please enter a user name' 
+                };
                 return newState;
             }) 
             hasError = true;
@@ -49,7 +37,11 @@ const Login = (props) => {
 
         if (password.password.length < 1) {
             setPassword(prevState => {
-                const newState = { ...prevState, hasError: true };
+                const newState = { 
+                    ...prevState, 
+                    hasError: true,
+                    errorMessage: 'Please enter a password' 
+                };
                 return newState;
             }) 
             hasError = true;
@@ -87,6 +79,11 @@ const Login = (props) => {
         }) 
     }
 
+    const inputs = [
+        new InputData('User Name', 'text', userName.userName, handleUserNameChanged, user, whiteUser, userName.hasError, userName.errorMessage),
+        new InputData('Password', 'password', password.password, handlePasswordChanged, passwordIcon, whitePassword, password.hasError, password.errorMessage),
+    ]
+
     return (
         <Layout 
             title="Welcome Back"
@@ -97,28 +94,7 @@ const Login = (props) => {
             onAction={() => props.history.push('/signup')}
             loading={loading}
         >
-            <Box className={classes.inputsContainer}>
-                <Input 
-                    placeholder="User Name"
-                    value={userName.userName} 
-                    handleChange={handleUserNameChanged}
-                    icon={user} 
-                    type="text"
-                    whiteIcon={whiteUser} 
-                    hasError={userName.hasError}
-                    errorMessage="Please enter a user name"
-                />
-                <Input 
-                    placeholder="Password" 
-                    value={password.password}
-                    handleChange={handlePasswordChanged}
-                    icon={passwordIcon} 
-                    type="password"
-                    whiteIcon={whitePassword} 
-                    hasError={password.hasError}
-                    errorMessage="Please enter a password"
-                />
-            </Box>
+            <Inputs inputs={inputs} />
         </Layout>
     );
 };
