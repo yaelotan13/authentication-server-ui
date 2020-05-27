@@ -57,7 +57,7 @@ const useStyle = makeStyles((theme) => ({
 
 const Layout = (props) => {
     const classes = useStyle();
-    const { children, title, buttonTitle, handleSubmit, question, action } = props;
+    const { children, title, buttonTitle, handleSubmit, question, action, onAction, loading } = props;
 
     return (
         <Box className={classes.container}>
@@ -67,8 +67,8 @@ const Layout = (props) => {
                 <Typography className={classes.title}>{title}</Typography>
                 {children}
                 <Box className={classes.buttonContainer}>
-                    <PrimaryButton title={buttonTitle} onClick={handleSubmit} />
-                    <Question question={question} action={action} />
+                    <PrimaryButton title={buttonTitle} onClick={handleSubmit} loading={loading} />
+                    <Question question={question} action={action} onAction={onAction} />
                 </Box>
                 <Box className={classes.separator} />
             </Box>
