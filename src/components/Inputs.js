@@ -25,7 +25,9 @@ const Inputs = (props) => {
         <Box className={classes.inputsContainer}>
             {inputs.map(input => 
                 <Input 
+                    key={input.key}
                     placeholder={input.placeholder}
+                    id={input.id}
                     value={input.value} 
                     handleChange={input.handleChanged}
                     icon={input.icon} 

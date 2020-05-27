@@ -31,10 +31,11 @@ const Input = (props) => {
     const classes = useStyle();
     const theme = useTheme();
     const matchesSmallDevices = useMediaQuery(theme.breakpoints.down('sm'));
-    const { placeholder, icon, whiteIcon, errorMessage, hasError, value, handleChange, type } = props;
+    const { placeholder, id, icon, whiteIcon, errorMessage, hasError, value, handleChange, type } = props;
 
     return (
         <TextField
+            id={id}
             error={hasError}
             className={hasError ? [classes.input, classes.error].join(' ') : classes.input}
             value={value}

@@ -5,83 +5,49 @@ import whiteUser from '../../assetes/icons/user-white.png';
 import whitePassword from '../../assetes/icons/password-white.png';
 import passwordIcon from '../../assetes/icons/password.png';
 import { Layout, Inputs } from './../../components';
-import { InputData } from '../../data';
+import { InputData, invalidInputs } from '../../util';
 
 const Login = (props) => {
     const [loading, setLoading] = useState(false);
-    const [userName, setUserName] = useState({
-        userName: '',
-        hasError: false,
-        errorMessage: '',
-    });
-    const [password, setPassword] = useState({
-        password: '', 
-        hasError: false, 
-        errorMessage: ''
+    const [state, setState] = useState({
+        userName: {
+            value: '',
+            hasError: false,
+            errorMessage: '',
+        },
+        password: {
+            value: '',
+            hasError: false,
+            errorMessage: '',
+        }
     });
 
     const handleSubmit = () => {
-        let hasError = false;
-
-        if (userName.userName.length < 1) {
-            setUserName(prevState => {
-                const newState = { 
-                    ...prevState, 
-                    hasError: true, 
-                    errorMessage: 'Please enter a user name' 
-                };
-                return newState;
-            }) 
-            hasError = true;
-        }
-
-        if (password.password.length < 1) {
-            setPassword(prevState => {
-                const newState = { 
-                    ...prevState, 
-                    hasError: true,
-                    errorMessage: 'Please enter a password' 
-                };
-                return newState;
-            }) 
-            hasError = true;
-        }
-
-        if (hasError) {
-            console.log('cant get in')
+        if (invalidInputs(state, setState)) {
+            console.log('CANT log in');
         } else {
-            console.log('go in!');
+            console.log('logged in!');
             setLoading(true);
         }
     };
 
-    const handlePasswordChanged = (event) => {
+    const handleChange = (event) => {
         event.persist();
-        setPassword(prevState => {
-            const newState = { 
-                ...prevState, 
-                password: event.target.value, 
-                hasError: false 
-            };
-            return newState;
-        }) 
-    }
+        setState(prevState => {
+            const updatedObject = { ...prevState[event.target.id] };
+            updatedObject.value = event.target.value;
+            updatedObject.hasError = false;
 
-    const handleUserNameChanged = (event) => {
-        event.persist();
-        setUserName(prevState => {
-            const newState = { 
+            return {
                 ...prevState, 
-                userName: event.target.value, 
-                hasError: false 
-            };
-            return newState;
-        }) 
-    }
+                [event.target.id]: updatedObject
+            }
+        })
+    };
 
     const inputs = [
-        new InputData('User Name', 'text', userName.userName, handleUserNameChanged, user, whiteUser, userName.hasError, userName.errorMessage),
-        new InputData('Password', 'password', password.password, handlePasswordChanged, passwordIcon, whitePassword, password.hasError, password.errorMessage),
+        new InputData(1, 'User Name', 'userName', 'text', state.userName.value, handleChange, user, whiteUser, state.userName.hasError, state.userName.errorMessage),
+        new InputData(2, 'Password', 'password', 'password', state.password.value, handleChange, passwordIcon, whitePassword, state.password.hasError, state.password.errorMessage),
     ]
 
     return (
