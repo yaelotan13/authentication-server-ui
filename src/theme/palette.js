@@ -44,7 +44,7 @@ export default {
   },
   text: {
     primary: colors.blueGrey[900],
-    secondary: colors.blueGrey[700],
+    secondary: colors.blueGrey[600],
     light: colors.lightBlue[600],
     link: colors.blue[600]
   },

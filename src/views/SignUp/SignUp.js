@@ -32,6 +32,7 @@ const SignUp = (props) => {
             console.log('CANT log in');
         } else {
             setLoading(true);
+            props.history.push('/page');
         }
     };
 
