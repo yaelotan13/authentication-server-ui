@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { withRouter } from 'react-router-dom';
 
 import beach from '../../assetes/images/beach.jpg';
 import user from '../../assetes/icons/user.png';
@@ -46,7 +47,10 @@ const useStyle = makeStyles((theme) => ({
     title: {
         fontSize: theme.typography.h1.fontSize,
         fontFamily: theme.typography.h1.fontFamily,
-        color: theme.palette.text.primary
+        color: theme.palette.text.primary,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: theme.typography.h2.fontSize,
+        }, 
     },
     inputsContainer: {
         display: 'flex',
@@ -168,4 +172,4 @@ const Login = (props) => {
     );
 };
 
-export default Login;
+export default withRouter(Login);

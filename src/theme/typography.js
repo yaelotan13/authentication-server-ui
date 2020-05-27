@@ -4,7 +4,7 @@ export default {
   h1: {
     color: palette.text.primary,
     fontWeight: 900,
-    fontSize: '35px',
+    fontSize: '48px',
     letterSpacing: '-0.24px',
     lineHeight: '40px',
     fontFamily: "'Bree Serif', serif",
@@ -12,7 +12,7 @@ export default {
   h2: {
     color: palette.text.primary,
     fontWeight: 700,
-    fontSize: '29px',
+    fontSize: '35px',
     letterSpacing: '-0.24px',
     lineHeight: '32px',
     fontFamily: "'Muli', sans-serif",
@@ -36,7 +36,7 @@ export default {
   h5: {
     color: palette.text.primary,
     fontWeight: 600,
-    fontSize: '16px',
+    fontSize: '18px',
     letterSpacing: '-0.05px',
     lineHeight: '20px',
     fontFamily: "'Muli', sans-serif",
