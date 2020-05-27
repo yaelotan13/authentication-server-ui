@@ -1,6 +1,6 @@
 import React from 'react';
-import { Button} from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Button, CircularProgress, useMediaQuery } from '@material-ui/core';
+import { makeStyles, useTheme } from '@material-ui/styles';
 
 const useStyle = makeStyles((theme) => ({
     button: {
@@ -15,12 +15,17 @@ const useStyle = makeStyles((theme) => ({
         '&:hover': {
             opacity: 0.7
         }
+    },
+    spinner: {
+        color: 'white',
     }
 }));
 
 const PrimaryButton = (props) => {
     const classes = useStyle();
-    const { title, onClick } = props;
+    const theme = useTheme();
+    const matchesSmallDevices = useMediaQuery(theme.breakpoints.down('sm'));
+    const { title, onClick, loading } = props;
 
     return (
         <Button 
@@ -29,7 +34,13 @@ const PrimaryButton = (props) => {
             className={classes.button}
             onClick={onClick}
         >
-                {title}
+                {loading ? 
+                <CircularProgress 
+                    className={classes.spinner} 
+                    size={matchesSmallDevices ? 20 : 30} 
+                /> 
+                : 
+                title}
         </Button>
     )
 };

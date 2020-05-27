@@ -18,12 +18,14 @@ const useStyle = makeStyles((theme) => ({
 
 const Question = (props) => {
     const classes = useStyle();
-    const { question, action } = props;
+    const { question, action, onAction } = props;
 
     return (
         <Box className={classes.questionConatiner}>
             <Typography className={classes.question}>{question}</Typography>
-            <Typography className={classes.action}>{action}</Typography>
+            <Box onClick={onAction}>
+                <Typography className={classes.action}>{action}</Typography>
+            </Box>
         </Box>
     );
 };

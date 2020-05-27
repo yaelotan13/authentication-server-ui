@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Box } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
+import { Layout, Input } from '../../components';
 import user from '../../assetes/icons/user.png';
 import whiteUser from '../../assetes/icons/user-white.png';
 import whitePassword from '../../assetes/icons/password-white.png';
 import passwordIcon from '../../assetes/icons/password.png';
-import { Input, Layout } from './../../components';
 
 const useStyle = makeStyles((theme) => ({
     inputsContainer: {
@@ -19,21 +19,25 @@ const useStyle = makeStyles((theme) => ({
             width: '100vw',
         }, 
     },
-    inputContainer: {
-        display: 'flex',
-    },
 }));
 
-const Login = (props) => {
+const SignUp = (props) => {
     const classes = useStyle();
     const [loading, setLoading] = useState(false);
     const [userName, setUserName] = useState({
         userName: '',
-        hasError: false
+        hasError: false,
+        errorMessage: '',
     });
     const [password, setPassword] = useState({
         password: '', 
-        hasError: false
+        hasError: false,
+        errorMessage: '',
+    });
+    const [confirmPassword, setConfirmPassword] = useState({
+        password: '', 
+        hasError: false,
+        errorMessage: '',
     });
 
     const handleSubmit = () => {
@@ -41,7 +45,11 @@ const Login = (props) => {
 
         if (userName.userName.length < 1) {
             setUserName(prevState => {
-                const newState = { ...prevState, hasError: true };
+                const newState = { 
+                    ...prevState, 
+                    hasError: true, 
+                    errorMessage: 'Please enter a user name' 
+                };
                 return newState;
             }) 
             hasError = true;
@@ -49,7 +57,36 @@ const Login = (props) => {
 
         if (password.password.length < 1) {
             setPassword(prevState => {
-                const newState = { ...prevState, hasError: true };
+                const newState = { 
+                    ...prevState, 
+                    hasError: true, 
+                    errorMessage: 'Please enter a password' 
+                };
+                return newState;
+            }) 
+            hasError = true;
+        }
+
+        if (confirmPassword.password.length < 1) {
+            setConfirmPassword(prevState => {
+                const newState = { 
+                    ...prevState, 
+                    hasError: true, 
+                    errorMessage: 'Please re-enter your password' 
+                };
+                return newState;
+            }) 
+            hasError = true;
+        }
+
+
+        if (confirmPassword.password !== password.password) {
+            setConfirmPassword(prevState => {
+                const newState = { 
+                    ...prevState, 
+                    hasError: true, 
+                    errorMessage: 'Your password is not correct' 
+                };
                 return newState;
             }) 
             hasError = true;
@@ -75,6 +112,18 @@ const Login = (props) => {
         }) 
     }
 
+    const handleConfirmPasswordChanged = (event) => {
+        event.persist();
+        setConfirmPassword(prevState => {
+            const newState = { 
+                ...prevState, 
+                password: event.target.value, 
+                hasError: false 
+            };
+            return newState;
+        }) 
+    }
+
     const handleUserNameChanged = (event) => {
         event.persist();
         setUserName(prevState => {
@@ -88,13 +137,13 @@ const Login = (props) => {
     }
 
     return (
-        <Layout 
-            title="Welcome Back"
-            buttonTitle="Log In"
+        <Layout
+            title="Sign Up"
+            buttonTitle="Sign Up"
             handleSubmit={handleSubmit}
-            question="Don't have an account?"
-            action="create account"
-            onAction={() => props.history.push('/signup')}
+            question="Already have an account?"
+            action="sign in"
+            onAction={() => props.history.push('/login')}
             loading={loading}
         >
             <Box className={classes.inputsContainer}>
@@ -106,7 +155,7 @@ const Login = (props) => {
                     type="text"
                     whiteIcon={whiteUser} 
                     hasError={userName.hasError}
-                    errorMessage="Please enter a user name"
+                    errorMessage={userName.errorMessage}
                 />
                 <Input 
                     placeholder="Password" 
@@ -116,11 +165,23 @@ const Login = (props) => {
                     type="password"
                     whiteIcon={whitePassword} 
                     hasError={password.hasError}
-                    errorMessage="Please enter a password"
+                    errorMessage={password.errorMessage}
                 />
+                {password.password.length > 0 &&
+                    <Input 
+                        placeholder="Confirm Password" 
+                        value={confirmPassword.password}
+                        handleChange={handleConfirmPasswordChanged}
+                        icon={passwordIcon} 
+                        type="password"
+                        whiteIcon={whitePassword} 
+                        hasError={confirmPassword.hasError}
+                        errorMessage={confirmPassword.errorMessage}
+                    />
+                }
             </Box>
         </Layout>
-    );
+    )
 };
 
-export default Login;
+export default SignUp;
