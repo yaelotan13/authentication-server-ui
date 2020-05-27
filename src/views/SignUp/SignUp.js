@@ -1,28 +1,13 @@
 import React, { useState } from 'react';
-import { Box } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
 
-import { Layout, Input } from '../../components';
+import { Layout, Inputs } from '../../components';
 import user from '../../assetes/icons/user.png';
 import whiteUser from '../../assetes/icons/user-white.png';
 import whitePassword from '../../assetes/icons/password-white.png';
 import passwordIcon from '../../assetes/icons/password.png';
-
-const useStyle = makeStyles((theme) => ({
-    inputsContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-        [theme.breakpoints.down('sm')]: {
-            marginTop: '10vh',
-            width: '100vw',
-        }, 
-    },
-}));
+import { InputData } from '../../data';
 
 const SignUp = (props) => {
-    const classes = useStyle();
     const [loading, setLoading] = useState(false);
     const [userName, setUserName] = useState({
         userName: '',
@@ -136,6 +121,12 @@ const SignUp = (props) => {
         }) 
     }
 
+    const inputs = [
+        new InputData('User Name', 'text', userName.userName, handleUserNameChanged, user, whiteUser, userName.hasError, userName.errorMessage),
+        new InputData('Password', 'password', password.password, handlePasswordChanged, passwordIcon, whitePassword, password.hasError, password.errorMessage),
+        new InputData('Confirm Password', 'password', confirmPassword.password, handleConfirmPasswordChanged, passwordIcon, whitePassword, confirmPassword.hasError, confirmPassword.errorMessage),
+    ]
+
     return (
         <Layout
             title="Sign Up"
@@ -146,40 +137,7 @@ const SignUp = (props) => {
             onAction={() => props.history.push('/login')}
             loading={loading}
         >
-            <Box className={classes.inputsContainer}>
-                <Input 
-                    placeholder="User Name"
-                    value={userName.userName} 
-                    handleChange={handleUserNameChanged}
-                    icon={user} 
-                    type="text"
-                    whiteIcon={whiteUser} 
-                    hasError={userName.hasError}
-                    errorMessage={userName.errorMessage}
-                />
-                <Input 
-                    placeholder="Password" 
-                    value={password.password}
-                    handleChange={handlePasswordChanged}
-                    icon={passwordIcon} 
-                    type="password"
-                    whiteIcon={whitePassword} 
-                    hasError={password.hasError}
-                    errorMessage={password.errorMessage}
-                />
-                {password.password.length > 0 &&
-                    <Input 
-                        placeholder="Confirm Password" 
-                        value={confirmPassword.password}
-                        handleChange={handleConfirmPasswordChanged}
-                        icon={passwordIcon} 
-                        type="password"
-                        whiteIcon={whitePassword} 
-                        hasError={confirmPassword.hasError}
-                        errorMessage={confirmPassword.errorMessage}
-                    />
-                }
-            </Box>
+            <Inputs inputs={inputs} />
         </Layout>
     )
 };
