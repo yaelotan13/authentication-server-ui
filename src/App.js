@@ -1,16 +1,19 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/styles';
 import theme from './theme/index';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Login from './views/LogIn';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <div className="App">
-        <Login />
-      </div>
-    </ThemeProvider>
+    <BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+          </Switch>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 

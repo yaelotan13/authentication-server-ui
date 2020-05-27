@@ -20,7 +20,7 @@ const useStyle = makeStyles((theme) => ({
         },   
     },
     whiteColor: {
-        color: 'white'
+        color: 'white',
     },
     darkColor: {
         color: 'black'
