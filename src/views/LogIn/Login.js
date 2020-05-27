@@ -28,6 +28,7 @@ const Login = (props) => {
         } else {
             console.log('logged in!');
             setLoading(true);
+            props.history.push('/page');
         }
     };
 
