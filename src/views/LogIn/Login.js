@@ -31,7 +31,10 @@ const Login = (props) => {
                 password: state.password.value
             });
             if (response.loggedIn) {
-                props.history.push('/feed');
+                props.history.push({
+                    pathname: '/feed',
+                    state: { userName: response.userName, firstTime: false }
+                });
             } else {
                 setLoading(false);
                 if (response.error === errorMessages.emailNotCorrectError) {

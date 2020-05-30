@@ -43,7 +43,10 @@ const SignUp = (props) => {
                 password: state.password.value
             });
             if (response.signedIn) {
-                props.history.push('/feed');
+                props.history.push({
+                    pathname: '/feed',
+                    state: { userName: state.userName.value, firstTime: true }
+                });
             } else {
                 setLoading(false);
                 if (response.error === errorMessages.emailExists) {

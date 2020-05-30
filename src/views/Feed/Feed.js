@@ -18,6 +18,9 @@ const useStyle = makeStyles((theme) => ({
         fontSize: theme.typography.h1.fontSize,
         fontFamily: theme.typography.h1.fontFamily, 
         marginTop: '5vh',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: theme.typography.h4.fontSize,
+        }, 
     },
     gif: {
         marginTop: '10vh',
@@ -38,26 +41,43 @@ const useStyle = makeStyles((theme) => ({
         color: theme.palette.text.secondary,
         fontSize: theme.typography.h5.fontSize,
         fontFamily: theme.typography.h1.fontFamily, 
+        [theme.breakpoints.down('sm')]: {
+            fontSize: theme.typography.h6.fontSize,
+            marginLeft: 4
+        }, 
     }
 }));
 
 const Feed = (props) => {
     const classes = useStyle();
+    const { location, history } = props;
+    let userName = 'somebody';
+    let firstTime = false;
+    if (location.state) {
+        userName = location.state.userName;
+        firstTime = location.state.firstTime;
+    }
+    const capitalizedName = userName[0].toUpperCase() +  userName.slice(1); 
 
+    console.log(firstTime);
     const handleLogOut = async () => {
         try {
             const loggedOut = await canLogOut();
             if (loggedOut) {
-                props.history.push('/login')
+                history.push('/login')
             }
         } catch (error) {
             console.log('error occured');
         }
     }
 
+    const getSubTitle = () => firstTime ? "It's your first time seeing the dancing robot!" : "Did you miss the dancing robot?";
+    const getTitle = () => firstTime ? `WOW ${capitalizedName}, you made it in!` : `WOW ${capitalizedName}, you made it in again!`;
+
     return (
         <Box className={classes.container}>
-            <Typography className={classes.title}>WOW! you made it in</Typography>
+            <Typography className={classes.title}>{getTitle()}</Typography>
+            <Typography className={classes.subTitle}>{getSubTitle()}</Typography>
             <Box className={classes.logOutContainer} onClick={handleLogOut}>
                 <Icon icon={logOut} />
                 <Typography className={classes.logOut}>Log Out</Typography>

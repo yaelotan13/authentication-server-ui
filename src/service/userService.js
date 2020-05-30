@@ -27,7 +27,7 @@ export const canLogIn = async (user) => {
             password: user.password
         });
         if (result.status === 200) {
-            return { loggedIn: true };
+            return { loggedIn: true, userName: result.data };
         } 
     } catch (error) {
         if (error.response.data === errorMessages.emailNotCorrectError) {
