@@ -41,7 +41,7 @@ const useStyle = makeStyles((theme) => ({
     }
 }));
 
-const Page = (props) => {
+const Feed = (props) => {
     const classes = useStyle();
 
     const handleLogOut = async () => {
@@ -69,4 +69,4 @@ const Page = (props) => {
     )
 };
 
-export default Page;
+export default Feed;
