@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-import user from '../../assetes/icons/user.png';
-import whiteUser from '../../assetes/icons/user-white.png';
+import email from '../../assetes/icons/email.png';
+import whiteEmail from '../../assetes/icons/email-white.png';
 import whitePassword from '../../assetes/icons/password-white.png';
 import passwordIcon from '../../assetes/icons/password.png';
 import { Layout, Inputs } from './../../components';
@@ -62,7 +62,7 @@ const Login = (props) => {
     };
 
     const inputs = [
-        new InputData(1, 'Email', 'email', 'text', state.email.value, handleChange, user, whiteUser, state.email.hasError, state.email.errorMessage),
+        new InputData(1, 'Email', 'email', 'text', state.email.value, handleChange, email, whiteEmail, state.email.hasError, state.email.errorMessage),
         new InputData(2, 'Password', 'password', 'password', state.password.value, handleChange, passwordIcon, whitePassword, state.password.hasError, state.password.errorMessage),
     ]
 
