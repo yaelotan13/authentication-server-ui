@@ -30,10 +30,11 @@ const useStyle = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             width: '90vw',
             position: 'absolute',
-            top: 80,
+            top: 50,
             backgroundColor: 'rgba(230, 230, 230, 0.85)',
             borderRadius: 5,
-            marginLeft: '5vw'
+            marginLeft: '5vw',
+            height: '85vh'
         },
     },
     separator: {
