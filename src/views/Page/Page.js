@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/styles';
 
 import { Icon } from '../../components';
 import logOut from '../../assetes/icons/logout.png';
+import { canLogOut } from '../../service';
 
 const useStyle = makeStyles((theme) => ({
     container: {
@@ -43,15 +44,26 @@ const useStyle = makeStyles((theme) => ({
 const Page = (props) => {
     const classes = useStyle();
 
+    const handleLogOut = async () => {
+        try {
+            const loggedOut = await canLogOut();
+            if (loggedOut) {
+                props.history.push('/login')
+            }
+        } catch (error) {
+            console.log('error occured');
+        }
+    }
+
     return (
         <Box className={classes.container}>
             <Typography className={classes.title}>WOW! you made it in</Typography>
-            <Box className={classes.logOutContainer}>
+            <Box className={classes.logOutContainer} onClick={handleLogOut}>
                 <Icon icon={logOut} />
                 <Typography className={classes.logOut}>Log Out</Typography>
             </Box>
             <Box className={classes.gif}>
-                <iframe title="dancing GIF" src="https://giphy.com/embed/mIZ9rPeMKefm0" width="344" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+                <iframe title="dancing GIF" src="https://giphy.com/embed/mIZ9rPeMKefm0" width="344" height="480" frameBorder="0" allowFullScreen></iframe>
             </Box>
         </Box>
     )

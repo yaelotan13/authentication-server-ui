@@ -5,12 +5,13 @@ import whiteUser from '../../assetes/icons/user-white.png';
 import whitePassword from '../../assetes/icons/password-white.png';
 import passwordIcon from '../../assetes/icons/password.png';
 import { Layout, Inputs } from './../../components';
-import { InputData, invalidInputs } from '../../util';
+import { InputData, validInputs, errorMessages, setError } from '../../util';
+import { canLogIn } from '../../service';
 
 const Login = (props) => {
     const [loading, setLoading] = useState(false);
     const [state, setState] = useState({
-        userName: {
+        email: {
             value: '',
             hasError: false,
             errorMessage: '',
@@ -22,13 +23,24 @@ const Login = (props) => {
         }
     });
 
-    const handleSubmit = () => {
-        if (invalidInputs(state, setState)) {
-            console.log('CANT log in');
-        } else {
-            console.log('logged in!');
+    const handleSubmit = async () => {
+        if (validInputs(state, setState)) {
             setLoading(true);
-            props.history.push('/page');
+            const response = await canLogIn({
+                email: state.email.value,
+                password: state.password.value
+            });
+            if (response.loggedIn) {
+                props.history.push('/page');
+            } else {
+                setLoading(false);
+                if (response.error === errorMessages.emailNotCorrectError) {
+                    setError(setState, 'email', errorMessages.emailNotCorrectError);
+                }
+                if (response.error === errorMessages.passwordNotCorrectError) {
+                    setError(setState, 'password', errorMessages.passwordNotCorrectError);
+                }
+            }
         }
     };
 
@@ -47,7 +59,7 @@ const Login = (props) => {
     };
 
     const inputs = [
-        new InputData(1, 'User Name', 'userName', 'text', state.userName.value, handleChange, user, whiteUser, state.userName.hasError, state.userName.errorMessage),
+        new InputData(1, 'Email', 'email', 'text', state.email.value, handleChange, user, whiteUser, state.email.hasError, state.email.errorMessage),
         new InputData(2, 'Password', 'password', 'password', state.password.value, handleChange, passwordIcon, whitePassword, state.password.hasError, state.password.errorMessage),
     ]
 
