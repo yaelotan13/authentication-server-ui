@@ -12,7 +12,6 @@ export const canSignIn = async (user) => {
             return { signedIn: true };
         } 
     } catch (error) {
-        console.log(error.response.data);
         if (error.response.data === errorMessages.emailExists) {
             return { signedIn: false, error: errorMessages.emailExists }
         }
@@ -27,7 +26,6 @@ export const canLogIn = async (user) => {
             email: user.email, 
             password: user.password
         });
-        console.log(result);
         if (result.status === 200) {
             return { loggedIn: true };
         } 
@@ -44,9 +42,7 @@ export const canLogIn = async (user) => {
 }
 
 export const canLogOut = async () => {
-    console.log('logging out..');
     const result = await axiosInstance.post('/signout');
-    console.log(result);
     if (result.status === 202) {
         return true;
     }
