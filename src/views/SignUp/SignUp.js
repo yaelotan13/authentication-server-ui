@@ -6,6 +6,7 @@ import whiteUser from '../../assetes/icons/user-white.png';
 import whitePassword from '../../assetes/icons/password-white.png';
 import passwordIcon from '../../assetes/icons/password.png';
 import email from '../../assetes/icons/email.png';
+import whiteEmail from '../../assetes/icons/email-white.png';
 import { InputData, validInputs, setError, errorMessages } from '../../util';
 import { canSignIn } from '../../service';
 
@@ -72,7 +73,7 @@ const SignUp = (props) => {
 
     const inputs = [
         new InputData(1, 'User Name', 'userName', 'text', state.userName.value, handleChange, user, whiteUser, state.userName.hasError, state.userName.errorMessage),
-        new InputData(2, 'Email', 'email', 'text', state.email.value, handleChange, email, whiteUser, state.email.hasError, state.email.errorMessage),
+        new InputData(2, 'Email', 'email', 'text', state.email.value, handleChange, email, whiteEmail, state.email.hasError, state.email.errorMessage),
         new InputData(3, 'Password', 'password', 'password', state.password.value, handleChange, passwordIcon, whitePassword, state.password.hasError, state.password.errorMessage),
         new InputData(4, 'Confirm Password', 'confirmPassword','password', state.confirmPassword.value, handleChange, passwordIcon, whitePassword, state.confirmPassword.hasError, state.confirmPassword.errorMessage),
     ]
