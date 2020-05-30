@@ -41,7 +41,7 @@ export const validInputs = (state, setState) => {
                 setState(prevState => {
                     const updatedInput = { ...prevState[input] };
                     updatedInput.hasError = true;
-                    updatedInput.errorMessage = errorMessages.passwordError;
+                    updatedInput.errorMessage = errorMessages.passwordNotCorrectError;
         
                     return {
                         ...prevState, 
