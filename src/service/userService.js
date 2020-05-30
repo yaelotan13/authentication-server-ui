@@ -1,6 +1,19 @@
 import axiosInstance from './axiosInstance';
 import { errorMessages } from '../util';
 
+export const isLoggedIn = async () => {
+    try {
+        const result = await axiosInstance.get('user');
+        console.log(result);
+
+        if (result.status === 200) {
+            return { loggedIn: true };
+        } 
+    } catch (error) {
+        return { loggedIn: false };
+    }
+};
+
 export const canSignIn = async (user) => {
     try {
         const result = await axiosInstance.post('users', {

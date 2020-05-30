@@ -1,7 +1,8 @@
-import { canLogIn, canLogOut, canSignIn } from './userService';
+import { canLogIn, canLogOut, canSignIn, isLoggedIn } from './userService';
 
 export {
     canLogIn, 
     canLogOut, 
-    canSignIn
+    canSignIn,
+    isLoggedIn
 }
