@@ -11,7 +11,16 @@ const useStyle = makeStyles((theme) => ({
         fontFamily: theme.typography.h1.fontFamily, 
         marginTop: '5vh',
         [theme.breakpoints.down('sm')]: {
-            fontSize: theme.typography.h4.fontSize,
+            fontSize: theme.typography.h3.fontSize,
+        }, 
+    },
+    subTitle: {
+        marginTop: '5vh',
+        fontFamily: theme.typography.h1.fontFamily, 
+        fontSize: theme.typography.h5.fontSize,
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '2vh',
+            fontSize: theme.typography.h6.fontSize,
         }, 
     },
     logOutContainer: {
@@ -49,7 +58,7 @@ const FeedPage = (props) => {
     return (
         <Fragment>
             <Typography className={classes.title}>{getTitle()}</Typography>
-            <Typography>{getSubTitle()}</Typography>
+            <Typography className={classes.subTitle}>{getSubTitle()}</Typography>
             <Box className={classes.logOutContainer} onClick={handleLogOut}>
                 <Icon icon={logOut} />
                 <Typography className={classes.logOut}>Log Out</Typography>
