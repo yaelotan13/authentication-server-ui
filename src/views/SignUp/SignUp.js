@@ -43,7 +43,7 @@ const SignUp = (props) => {
                 password: state.password.value
             });
             if (response.signedIn) {
-                props.history.push('/page');
+                props.history.push('/feed');
             } else {
                 setLoading(false);
                 if (response.error === errorMessages.emailExists) {
@@ -80,7 +80,7 @@ const SignUp = (props) => {
             buttonTitle="Sign Up"
             handleSubmit={handleSubmit}
             question="Already have an account?"
-            action="sign in"
+            action="Sign In"
             onAction={() => props.history.push('/login')}
             loading={loading}
         >

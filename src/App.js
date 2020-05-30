@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Login from './views/LogIn';
 import SignUp from './views/SignUp';
-import Page from './views/Page';
+import Feed from './views/Feed';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/page" component={Page} />
+            <Route exact path="/feed" component={Feed} />
             <Route path="/" component={Login} />
           </Switch>
       </ThemeProvider>

@@ -31,7 +31,7 @@ const Login = (props) => {
                 password: state.password.value
             });
             if (response.loggedIn) {
-                props.history.push('/page');
+                props.history.push('/feed');
             } else {
                 setLoading(false);
                 if (response.error === errorMessages.emailNotCorrectError) {
@@ -69,7 +69,7 @@ const Login = (props) => {
             buttonTitle="Log In"
             handleSubmit={handleSubmit}
             question="Don't have an account?"
-            action="create account"
+            action="Create Account"
             onAction={() => props.history.push('/signup')}
             loading={loading}
         >
